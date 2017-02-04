@@ -113,7 +113,7 @@ class RequestFactory extends Nette\Object
 		$reChars = '#^[' . self::CHARS . ']*+\z#u';
 		if (!$this->binary) {
 			$list = array(& $query, & $post, & $cookies);
-			while (list($key, $val) = each($list)) {
+			foreach ($list as $key => &$val) {
 				foreach ($val as $k => $v) {
 					if (is_string($k) && (!preg_match($reChars, $k) || preg_last_error())) {
 						unset($list[$key][$k]);
@@ -147,7 +147,7 @@ class RequestFactory extends Nette\Object
 			}
 		}
 
-		while (list(, $v) = each($list)) {
+		foreach ($list as &$v) {
 			if (!isset($v['name'])) {
 				continue;
 
